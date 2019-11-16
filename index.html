@@ -21,6 +21,24 @@
 
 // Generate random password
 
+// Generate random number. This method is reported to be random in the cryptographic sense, that is more random than math.random
+//  Uint8Array is an array of 8 bits per element. It holds numbers from 0 to 255
+var randomArray = new Uint8Array(128);
+window.crypto.getRandomValues(randomArray);
+
+console.log("Your lucky numbers:");
+for (var i = 0; i < randomArray.length; i++) {
+  console.log(randomArray[i]);
+  
+}
+
+// Create 4 arrays with possible chars (letters, letters + numbers, letters + special chars, letters + numbers + special chars)
+// User input decides from which array the password chars are chosen
+// generate a random array of the same size as the password content array
+// take the number in the element at each position of the randomArray, and map that to a position in the content array, output that content
+// Output each char onto screen as they're produced, to concatenate them into a string and then print that
+
+
 // output random password
 
 </script>
