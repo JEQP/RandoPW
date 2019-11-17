@@ -9,11 +9,45 @@
 <body>
 
     <!-- Sexy front page with Title, brief instructions, buttons to respond to events, and output box -->
+    <header>
+      <h1>Password Generator</h1>
+    </header>
+    <h2>Generate a Password</h2>
+    <textarea
+      readonly
+      id="password"
+      placeholder="Your Secure Password"
+      aria-label="Generated Password"
+    ></textarea>
+    <button id="generate">Generate Password</button>
+    <button id="copy">
+      Copy to Clipboard
+    </button>
 
 
 <script>
 
+currentCharChoice[] data={};
+lowerCaseChars[] data={q,w,e,r,t,y,u,i,o,p,l,k,j,h,g,f,d,s,a,z,x,c,v,b,n,m};
+upperCaseChars[] data={Q,W,E,R,T,Y,U,I,O,P,L,K,J,H,G,F,D,S,A,Z,X,C,V,B,N,M};
+numericalChars[] data={1,2,3,4,5,6,7,8,9,0};
+specialChars[] data={"~","!","@","#","$","%","^","&","*","(",")","{","}","[","]",":",";","<",">","?","/","+",".",",","|"};
+
 // Prompt for number of chars of password -- check that it is a number, and between the required values
+var passwordLengthString = prompt("Enter the desired length of password, from 8 to 128 characters.");
+var passwordLengthNumber = parseInt(passwordLengthString);
+// NOTE: If if the prompt is not a number, or left empty, parseInt will return 0, which is less than 8 and so will be treated as invalid.
+if (passwordLengthNumber > 7 && passwordLengthNumber < 129){
+
+
+
+
+
+}
+else {
+  alert("That's not a valid response, sorry.")
+}
+
 
 // Prompt to include special chars -- boolean
 
@@ -32,10 +66,12 @@ for (var i = 0; i < randomArray.length; i++) {
   
 }
 
-// Create 4 arrays with possible chars (letters, letters + numbers, letters + special chars, letters + numbers + special chars)
-// User input decides from which array the password chars are chosen
-// generate a random array of the same size as the password content array
+// Revised criteria: The user can choose to include any and all of four different character types: lowercase letters, uppercase letters, numbers, special characters. 
+// That would require 24 different arrays using the previous method, which is untenable. 
+// Hard-code 4 arrays with each different type of character. Creat currentCharChoice, a zero-length array. As the user chooses characters, concatenate currentCharChoice with the appropriate arrays.
+// generate a random array of the required size of the password
 // take the number in the element at each position of the randomArray, and map that to a position in the content array, output that content
+// NOTE: The number in randomArray may be larger than the size of the contentArray. Figure out a fix.
 // Output each char onto screen as they're produced, to concatenate them into a string and then print that
 
 
