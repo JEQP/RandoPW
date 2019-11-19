@@ -2,69 +2,138 @@
 <html lang="en-us">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Where are you?</title>
+  <meta charset="UTF-8">
+  <title>Where are you?</title>
 </head>
 
 <body>
 
-    <!-- Sexy front page with Title, brief instructions, buttons to respond to events, and output box -->
-    <header>
-      <h1>Password Generator</h1>
-    </header>
-    <h2>Generate a Password</h2>
-    <textarea
-      readonly
-      id="password"
-      placeholder="Your Secure Password"
-      aria-label="Generated Password"
-    ></textarea>
-    <button id="generate">Generate Password</button>
-    <button id="copy">
-      Copy to Clipboard
-    </button>
+  <!-- Sexy front page with Title, brief instructions, buttons to respond to events, and output box -->
+  <header>
+    <h1>Password Generator</h1>
+  </header>
+  <h2>Generate a Password</h2>
+  <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password"></textarea>
+  <button id="generate" onclick="generatePassword()">Generate Password</button>
+  <button id="copy">
+    Copy to Clipboard
+  </button>
 
 
-<script>
-
-currentCharChoice[] data={};
-lowerCaseChars[] data={q,w,e,r,t,y,u,i,o,p,l,k,j,h,g,f,d,s,a,z,x,c,v,b,n,m};
-upperCaseChars[] data={Q,W,E,R,T,Y,U,I,O,P,L,K,J,H,G,F,D,S,A,Z,X,C,V,B,N,M};
-numericalChars[] data={1,2,3,4,5,6,7,8,9,0};
-specialChars[] data={"~","!","@","#","$","%","^","&","*","(",")","{","}","[","]",":",";","<",">","?","/","+",".",",","|"};
-
-// Prompt for number of chars of password -- check that it is a number, and between the required values
-var passwordLengthString = prompt("Enter the desired length of password, from 8 to 128 characters.");
-var passwordLengthNumber = parseInt(passwordLengthString);
-// NOTE: If if the prompt is not a number, or left empty, parseInt will return 0, which is less than 8 and so will be treated as invalid.
-if (passwordLengthNumber > 7 && passwordLengthNumber < 129){
+  <script>
+// create global variables
+    var currentCharChoice = [];
+    var lowerCaseChars = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "l", "k", "j", "h", "g", "f", "d", "s", "a", "z", "x", "c", "v", "b", "n", "m"];
+    var upperCaseChars = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "L", "K", "J", "H", "G", "F", "D", "S", "A", "Z", "X", "C", "V", "B", "N", "M"];
+    var numericalChars = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+    var specialChars = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "{", "}", "[", "]", ":", ";", "<", ">", "?", "/", "+", ".", ",", "|"];
+    var newPassword = "";
 
 
+    function generatePassword() {
+      // Prompt for number of chars of password -- check that it is a number, and between the required values
+      var passwordLengthString = prompt("Enter the desired length of password, from 8 to 128 characters.");
+      var passwordLengthNumber = parseInt(passwordLengthString);
+
+
+      // NOTE: If if the prompt is not a number, or left empty, parseInt will return 0, which is less than 8 and so will be treated as invalid.
+      if (passwordLengthNumber > 7 && passwordLengthNumber < 129) {
+        // Prompt for lowercase characters
+        var LCBool = confirm("Do you want the password to contain lowercase letters?");
+        // If yes, add lowerCaseChars array to currentCharChoice array
+        if (LCBool) {
+          currentCharChoice = currentCharChoice.concat(lowerCaseChars);
+        }
+
+        // Prompt for uppercase characters
+        var UCBool = confirm("Do you want the password to contain uppercase letters?");
+        // If yes, add upperCaseChars array to currentCharChoice array
+        if (UCBool) {
+          currentCharChoice = currentCharChoice.concat(upperCaseChars);
+        }
+
+        // Prompt for numerical characters
+        var numBool = confirm("Do you want numbers in your password?");
+        // If yes, add numericalChars to currentCharChoice array
+        if (numBool) {
+          currentCharChoice = currentCharChoice.concat(numericalChars);
+        }
+
+        // Prompot for special characters
+        var specBool = confirm("Do you want special characters in your password?");
+        // If yes, add specialChars to currentCharChoice array
+        if (specBool) {
+          currentCharChoice = currentCharChoice.concat(specialChars);
+        }
+
+        for (var i = 0; i < currentCharChoice.length; i++) {
+          console.log(currentCharChoice[i]);
+        }
+
+        // check that the users accepted at least one of these inputs
+
+        if (currentCharChoice.length > 1) {
+          // Generate random numbers between 0 and 255 in an array (including zero and 255)
+          var randomArray = new Uint8Array(passwordLengthNumber);
+          window.crypto.getRandomValues(randomArray);
+
+          for (var i = 0; i < randomArray.length; i++) {
+            // match number in each element of randomArray to character in each element of currentCharChoiceArray
+            // console.log("randomarray =" + randomArray[i]);
+            var x = (randomArray[i] / 256);
+            x = x * currentCharChoice.length;
+            x = Math.floor(x);
+            document.getElementById("password").innerHTML = x;
+            // console.log("x = " + x);
+            // console.log(currentCharChoice[x]);
+            // This adds each new character to the string newPassword
+            newPassword = newPassword.concat(currentCharChoice[x]);
+            // console.log(newPassword);
+
+          }
+
+          // Prints new password in #password
+          document.getElementById("password").innerHTML = newPassword;
 
 
 
-}
-else {
-  alert("That's not a valid response, sorry.")
-}
 
 
-// Prompt to include special chars -- boolean
 
-// Prompt to include numerical chars -- boolean
+        }
 
-// Generate random password
+        else {
+          alert("You have to pick at least one type of character for a password to be generated.")
+        }
 
-// Generate random number. This method is reported to be random in the cryptographic sense, that is more random than math.random
-//  Uint8Array is an array of 8 bits per element. It holds numbers from 0 to 255
-var randomArray = new Uint8Array(128);
-window.crypto.getRandomValues(randomArray);
 
-console.log("Your lucky numbers:");
-for (var i = 0; i < randomArray.length; i++) {
-  console.log(randomArray[i]);
-  
-}
+
+
+
+
+
+      }
+      else {
+        alert("That's not a valid response, sorry.")
+      }
+    }
+
+    // Prompt to include special chars -- boolean
+
+    // Prompt to include numerical chars -- boolean
+
+    // Generate random password
+
+    // Generate random number. This method is reported to be random in the cryptographic sense, that is more random than math.random
+    //  Uint8Array is an array of 8 bits per element. It holds numbers from 0 to 255
+    // var randomArray = new Uint8Array(128);
+    // window.crypto.getRandomValues(randomArray);
+
+    // console.log("Your lucky numbers:");
+    // for (var i = 0; i < randomArray.length; i++) {
+    //   console.log(randomArray[i]);
+
+    // }
 
 // Revised criteria: The user can choose to include any and all of four different character types: lowercase letters, uppercase letters, numbers, special characters. 
 // That would require 24 different arrays using the previous method, which is untenable. 
@@ -77,7 +146,7 @@ for (var i = 0; i < randomArray.length; i++) {
 
 // output random password
 
-</script>
+  </script>
 
 </body>
 
