@@ -3,20 +3,74 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <title>Where are you?</title>
 </head>
 
+<style>
+  textarea {
+    border-style: dashed;
+    width: 100%;
+    height: 5em;
+  }
+
+  .btn-danger {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: white;
+    letter-spacing: 1px;
+    line-height: 15px;
+    border: 2px solid #af0808;
+    border-radius: 40px;
+    background: #af0808;
+    ;
+    transition: all 0.3s ease 0s;
+  }
+
+  .btn-basic {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: white;
+    letter-spacing: 1px;
+    line-height: 15px;
+    border: 2px solid #c7c0cf;
+    border-radius: 40px;
+    background: #c7c0cf;
+    transition: all 0.3s ease 0s;
+  }
+</style>
+
 <body>
+  <div class="container.fluid bg-light">
+    <!-- Sexy front page with Title, brief instructions, buttons to respond to events, and output box -->
+    <!-- large container with background colour #f7f3f3 "whitesmoke" -->
+    <header>
+      <h1 class="text-center">Password Generator</h1>
+    </header>
+    <!-- Container with background colour white -->
+    <div class="container bg-white">
+      <!-- See if you can make this shadowed <div class="container shadow p-3 mb-5 bg-white rounded">  -->
+      <h2>Generate a Password</h2>
+      <!-- line between here and box -->
+      <hr>
+      <!-- text area 90% width of parent box. Dashed border. Height 5 lines, however that is measured -->
+      <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password"
+        class="rounded text-center"></textarea>
+      <!-- line between box and buttons -->
+      <hr>
+      <!-- buttons in a row...generate is "danger", copy is "basic", buttons are large, add border-radius:50% or 12px -->
+      <div class="row">
+        <div class="col-sm-6">
+          <button id="generate" class="btn btn-danger btn-large" onclick="generatePassword()">Generate A
+            Password</button>
+        </div>
+        <div class="col-sm-6 text-right">
+          <button id="copy" class="btn btn-basic btn-large" onClick="copy2Clipboard()">Copy to Clipboard</button>
+        </div>
+      </div>
 
-  <!-- Sexy front page with Title, brief instructions, buttons to respond to events, and output box -->
-  <header>
-    <h1>Password Generator</h1>
-  </header>
-  <h2>Generate a Password</h2>
-  <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password"></textarea>
-  <button id="generate" onclick="generatePassword()">Generate Password</button>
-  <button id="copy" onClick="copy2Clipboard()">Copy to Clipboard</button>
-
+    </div>
+  </div>
 
   <script>
     // create global variables
@@ -119,6 +173,7 @@
 
       /* Alert the copied text */
       alert("The password has been copied to your clipboard.");
+
     }
 
 
