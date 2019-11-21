@@ -15,13 +15,11 @@
   <h2>Generate a Password</h2>
   <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password"></textarea>
   <button id="generate" onclick="generatePassword()">Generate Password</button>
-  <button id="copy">
-    Copy to Clipboard
-  </button>
+  <button id="copy" onClick="copy2Clipboard()">Copy to Clipboard</button>
 
 
   <script>
-// create global variables
+    // create global variables
     var currentCharChoice = [];
     var lowerCaseChars = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "l", "k", "j", "h", "g", "f", "d", "s", "a", "z", "x", "c", "v", "b", "n", "m"];
     var upperCaseChars = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "L", "K", "J", "H", "G", "F", "D", "S", "A", "Z", "X", "C", "V", "B", "N", "M"];
@@ -95,28 +93,34 @@
           // Prints new password in #password
           document.getElementById("password").innerHTML = newPassword;
 
-
-
-
-
-
         }
 
         else {
           alert("You have to pick at least one type of character for a password to be generated.")
         }
 
-
-
-
-
-
-
       }
       else {
         alert("That's not a valid response, sorry.")
       }
     }
+
+
+    // Copies the text in the password textarea box to the clipboard.
+    function copy2Clipboard() {
+      var copyText = document.getElementById("password");
+
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+
+      /* Alert the copied text */
+      alert("The password has been copied to your clipboard.");
+    }
+
 
     // Prompt to include special chars -- boolean
 
