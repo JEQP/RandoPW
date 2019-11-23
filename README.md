@@ -5,4 +5,6 @@ When the user clicks the Generate Password button, this will prompt for the leng
 The program then randomly generates a password and displays it in the box. 
 If the user clicks Copy to clipboard the password is copied to their clipboard.
 
+Deployed link: https://jeqp.github.io/RandoPW/
+
 ![Password Generator](https://github.com/JEQP/RandoPW/blob/master/screencap.jpg)
